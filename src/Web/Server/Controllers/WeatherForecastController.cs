@@ -3,9 +3,7 @@ using Application.Responses.WeatherForecast;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -15,8 +13,6 @@ namespace Server.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-
-
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IMediator _mediator;
 

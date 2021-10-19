@@ -1,5 +1,4 @@
 ﻿using Application.Logic.Health.Query;
-using Application.Responses;
 using Application.Responses.Health;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

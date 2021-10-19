@@ -5,9 +5,17 @@ namespace Server.Extensions
 {
     internal static class ServerServicesExtensions
     {
-        internal static void AddServerServices(this IServiceCollection serviceCollection)
+
+        internal static void AddSwagger(this IServiceCollection services)
         {
-            serviceCollection.AddHostedService<LifetimeEventsHostedService>();
+            services.AddSwaggerDocument(doc=>
+            {
+                
+            });
+        }
+        internal static void AddServerServices(this IServiceCollection services)
+        {
+            services.AddHostedService<LifetimeEventsHostedService>();
         }
     }
 }

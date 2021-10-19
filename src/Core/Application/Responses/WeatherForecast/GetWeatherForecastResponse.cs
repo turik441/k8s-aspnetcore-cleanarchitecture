@@ -1,8 +1,12 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Server
+namespace Application.Responses.WeatherForecast
 {
-    public class WeatherForecast
+    public class GetWeatherForecastResponse
     {
         public DateTime Date { get; set; }
 

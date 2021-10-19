@@ -1,5 +1,9 @@
-﻿using Application.Responses;
+﻿using Application.Logic.Health.Query;
+using Application.Responses;
+using Application.Responses.Health;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Server.Controllers
@@ -8,25 +12,37 @@ namespace Server.Controllers
     [ApiController]
     public class HealthController : ControllerBase
     {
-        // If the process ready to serve requests e.g. done warmup of cache etc.
-        [HttpGet]
-        [Route("ready")]
-        public async Task<IActionResult> Ready()
+        private readonly IMediator _mediator;
+        public HealthController(IMediator mediator)
         {
-            return await Task.FromResult(Ok(new HealthResponse
-            {
-                Message = "Yes. Ready now."
-            }));
+            _mediator = mediator;
         }
 
-        // Check that the ASP.NET runtime responds
+        /// <summary>
+        /// Ready to serve requests e.g. done warmup of cache etc.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [Route("ready")]
+        [ProducesResponseType(typeof(GetHealthResponse),(int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Ready()
+        {
+            var result = await _mediator.Send(new GetHealthReadyQuery());
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Check that the ASP.NET runtime responds
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(GetHealthResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Alive()
         {
-            return await Task.FromResult(Ok(new HealthResponse
-            {
-                Message = "Alive. All is well."
-            }));          
+            var result = await _mediator.Send(new GetHealthAliveQuery());
+            return Ok(result);
         }
     }
 }

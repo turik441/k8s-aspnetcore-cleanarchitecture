@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
-namespace Application.Responses
+namespace Application.Responses.Health
 {
-    public class HealthResponse
+    public class GetHealthResponse
     {
         private static readonly string s_AssemblyVersion = Assembly.GetEntryAssembly()?.GetName().Version.ToString();
-        public HealthResponse()
+        public GetHealthResponse()
         {
             AssemblyVersion = s_AssemblyVersion;
         }

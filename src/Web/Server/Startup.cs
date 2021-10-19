@@ -1,15 +1,10 @@
+using Application.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Server.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Server
 {
@@ -25,7 +20,9 @@ namespace Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddServerServices();
+            services.AddServerServices();   
+            services.AddSwagger();
+            services.AddApplicationLayer();
             services.AddControllers();
         }
 
@@ -37,6 +34,7 @@ namespace Server
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureSwagger();
             app.UseRouting();
 
             app.UseAuthorization();
